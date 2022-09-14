@@ -1,43 +1,31 @@
 ﻿using Neuron.Tools;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Neuron
 {
-    public class Neuron
+    public abstract class Neuron
     {
-
         public Neuron(int inputCount, NeuronTypes type = NeuronTypes.Normal)
         {
             Weights = new double[inputCount];
             NeuronType = type;
-
-            Array.Fill(Weights, 1);
         }
 
-        public double[] Weights { get; }
-
-        public NeuronTypes NeuronType { get; }
-
-        public double Output { get; private set; }
-
-        public double FeedForward(double[] inputs)
+        public virtual void SetWeights(params double[] weights)
         {
-            if (inputs.Length != Weights.Length)
-                throw new Exception("Число входных данных нейрона не равно числу входов в нейрон!");
+            if (weights.Length != Weights.Length)
+                throw new Exception("Невозможно создать такой нейрон!");
 
-            double sum = 0;
-
-            for (int index = 0; index < Weights.Length; ++index)
-                sum += inputs[index] * Weights[index];
-
-            return new Sigmoida().GetResultBy(sum);
+            Array.Copy(weights, Weights, weights.Length);
         }
+
+        public abstract double[] Weights { get; init; }
+
+        public abstract NeuronTypes NeuronType { get; init; }
+
+        public abstract double Output { get; protected set; }
+
+        public abstract double FeedForward(double[] inputs);
 
         public override string ToString() => Output.ToString();
-
     }
 }
