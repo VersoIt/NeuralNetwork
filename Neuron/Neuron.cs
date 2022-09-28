@@ -5,10 +5,9 @@ namespace Neuron
 {
     public abstract class Neuron
     {
-        protected Neuron(int inputCount, NeuronTypes type = NeuronTypes.Normal)
+        protected Neuron(int inputCount)
         {
             Weights = new double[inputCount];
-            NeuronType = type;
         }
 
         public virtual void SetWeights(params double[] weights)
@@ -19,15 +18,13 @@ namespace Neuron
             Array.Copy(weights, Weights, weights.Length);
         }
 
+        public abstract string NeuronType { get; }
+
         public double Delta { get; protected set; }
 
         public double[] Weights { get; init; }
 
-        public NeuronTypes NeuronType { get; init; }
-
         public double Output { get; protected set; }
-
-        public abstract void Learn(double error, double learRate);
 
         public abstract double FeedForward(double[] inputs);
 

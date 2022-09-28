@@ -1,21 +1,14 @@
 ﻿using System.Collections;
-using System.Globalization;
+
 
 namespace Neuron
 {
     public class Layer : IEnumerable
     {
-
-        public Layer(Neuron[] neurons, NeuronTypes type)
+        public Layer(Neuron[] neurons)
         {
-            if (!neurons.All(x => x.NeuronType == type))
-                throw new Exception("Невозможно создать нейроны разных типов в одном слое.");
-
             Neurons = neurons;
-            NeuronType = type;
         }
-
-        public NeuronTypes NeuronType { get; }
 
         public Neuron[] Neurons { get; }
 
@@ -35,7 +28,7 @@ namespace Neuron
             return signals;
         }
 
-        public override string ToString() => NeuronType.ToString();
+        public override string ToString() => $"{Neurons.First().NeuronType} layer";
 
         public IEnumerator GetEnumerator() => Neurons.GetEnumerator();
     }

@@ -1,9 +1,6 @@
-﻿using System.Runtime.ExceptionServices;
-using System.Runtime.InteropServices;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Data;
+﻿using System.Data;
 using Neuron.Tools;
+
 
 namespace Neuron
 {
@@ -94,11 +91,11 @@ namespace Neuron
             var inputNeurons = new Neuron[Topology.InputCount];
             for (var index = 0; index < Topology.InputCount; ++index)
             {
-                var neuron = new DefaultNeuron(1, NeuronTypes.Input);
+                var neuron = new InputNeuron();
                 inputNeurons[index] = neuron;
             }
 
-            var inputLayer = new Layer(inputNeurons, NeuronTypes.Input);
+            var inputLayer = new Layer(inputNeurons);
             Layers.Add(inputLayer);
         }
 
@@ -109,11 +106,11 @@ namespace Neuron
 
             for (var index = 0; index < Topology.OutputCount; ++index)
             {
-                var neuron = new DefaultNeuron(lastLayer.Neurons.Count(), NeuronTypes.Output);
+                var neuron = new OutputNeuron(lastLayer.Neurons.Count());
                 outputNeurons[index] = neuron;
             }
 
-            var outputLayer = new Layer(outputNeurons, NeuronTypes.Output);
+            var outputLayer = new Layer(outputNeurons);
             Layers.Add(outputLayer);
         }
 
@@ -126,11 +123,11 @@ namespace Neuron
 
                 for (int index = 0; index < neuronsCount; ++index)
                 {
-                    var neuron = new DefaultNeuron(lastLayer.Neurons.Count(), NeuronTypes.Hidden);
+                    var neuron = new HiddenNeuron(lastLayer.Neurons.Count());
                     hiddenNeurons[index] = neuron;
                 }
 
-                var hiddenLayer = new Layer(hiddenNeurons, NeuronTypes.Hidden);
+                var hiddenLayer = new Layer(hiddenNeurons);
                 Layers.Add(hiddenLayer);
             }
         }
@@ -150,9 +147,10 @@ namespace Neuron
             var actual = FeedForward(inputs).Output;
             var difference = actual - expected;
 
-            foreach(var neuron in Layers.Last().Neurons)
+            foreach(var item in Layers.Last().Neurons)
             {
-                neuron.Learn(difference, Topology.LearningRate);
+                if (item is ILearnable neuron)
+                    neuron.Learn(difference, Topology.LearningRate);
             } 
 
             for (int i = Layers.Count - 2; i >= 0; --i)
@@ -168,7 +166,8 @@ namespace Neuron
                         var previousNeuron = previousLayer.Neurons[k];
                         var error = previousNeuron.Weights[j] * previousNeuron.Delta;
 
-                        neuron.Learn(error, Topology.LearningRate);
+                        if (neuron is ILearnable learnNeuron)
+                            learnNeuron.Learn(error, Topology.LearningRate);
                     }
                 }
             }
