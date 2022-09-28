@@ -1,27 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Neuron
 {
     public struct Topology
     {
 
-        public Topology(int inputCount, int outputCount, params int[] neuronsInHiddenLayersCounts)
+        public Topology(int inputCount, int outputCount, double learningRate, params int[] neuronsInHiddenLayersCounts)
         {
             InputCount = inputCount;
             OutputCount = outputCount;
             NeuronsInHiddenLayersCounts = new int[neuronsInHiddenLayersCounts.Length];
+            LearningRate = learningRate;
 
             neuronsInHiddenLayersCounts.CopyTo(NeuronsInHiddenLayersCounts, 0);
         }
 
-        public Int32 InputCount { get; }
-        public Int32 OutputCount { get; }
+        public double LearningRate { get; }
+
+        public int InputCount { get; }
+
+        public int OutputCount { get; }
+
         public int[] NeuronsInHiddenLayersCounts { get; }
-
-
     }
 }

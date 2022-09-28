@@ -1,9 +1,7 @@
-﻿using Neuron.Tools;
-using System;
-using System.Collections.Generic;
+﻿using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Neuron.Tools;
+
 
 namespace Neuron
 {
@@ -13,36 +11,70 @@ namespace Neuron
             : base(inputCount, type)
         {
             Weights = new double[inputCount];
+            Inputs = new double[inputCount];
+
+            InitWeightsByRandomValues(inputCount);
         }
+
+        public double[] Inputs { get; }
 
         public override void SetWeights(params double[] weights)
         {
             if (weights.Length != Weights.Length)
-                throw new Exception("Невозможно создать такой нейрон!");
+                throw new Exception("This is impossible to create such a neuron!");
 
             Array.Copy(weights, Weights, weights.Length);
         }
 
-        public override double[] Weights { get; init; }
+        public override void Learn(double error, double learningRate)
+        {
+            if (NeuronType == NeuronTypes.Input)
+                return;
 
-        public override NeuronTypes NeuronType { get; init; }
+            Delta = error * new SigmoidDx().GetResultBy(Output);
+            for (var i = 0; i < Weights.Length; ++i)
+            {
+                var weight = Weights[i];
+                var input = Inputs[i];
 
-        public override double Output { get; protected set; }
+                var newWeight = weight - input * Delta * learningRate;
+
+                Weights[i] = newWeight;
+            }
+        }
+
+        private void InitWeightsByRandomValues(int inputCount)
+        {
+            var random = new Random();
+
+            for (var i = 0; i < inputCount; ++i)
+            {
+                if (NeuronType == NeuronTypes.Input)
+                {
+                    Weights[i] = 1;
+                }
+                else
+                {
+                    Weights[i] = random.NextDouble();
+                }
+                Inputs[i] = 0.0;
+            }
+        }
 
         public override double FeedForward(double[] inputs)
         {
+            Array.Copy(inputs, Inputs, inputs.Length);
+
             if (inputs.Length != Weights.Length)
-                throw new Exception("Число входных данных нейрона не равно числу входов в нейрон!");
+                throw new Exception("The number of inputs to the neuron is not equal to the number of inputs to the neuron!");
 
-            double sum = 0;
+            var sum = Weights.Select((t, index) => inputs[index] * t).Sum();
 
-            for (int index = 0; index < Weights.Length; ++index)
-                sum += inputs[index] * Weights[index];
+            Output = NeuronType != NeuronTypes.Input ? new Sigmoid().GetResultBy(sum) : sum;
 
-            Output = new Sigmoida().GetResultBy(sum);
             return Output;
         }
 
-        public override string ToString() => Output.ToString();
+        public override string ToString() => Output.ToString(CultureInfo.InvariantCulture);
     }
 }

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
+using System.Globalization;
 
 namespace Neuron
 {
@@ -12,12 +8,14 @@ namespace Neuron
 
         public Layer(Neuron[] neurons, NeuronTypes type)
         {
-            // TODO: проверить все входные нейроны на соответствие одному типу
+            if (!neurons.All(x => x.NeuronType == type))
+                throw new Exception("Невозможно создать нейроны разных типов в одном слое.");
+
             Neurons = neurons;
             NeuronType = type;
         }
 
-        NeuronTypes NeuronType { get; }
+        public NeuronTypes NeuronType { get; }
 
         public Neuron[] Neurons { get; }
 
@@ -36,6 +34,8 @@ namespace Neuron
 
             return signals;
         }
+
+        public override string ToString() => NeuronType.ToString();
 
         public IEnumerator GetEnumerator() => Neurons.GetEnumerator();
     }

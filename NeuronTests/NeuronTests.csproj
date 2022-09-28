@@ -19,4 +19,10 @@
     <ProjectReference Include="..\Neuron\Neuron.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="heart.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

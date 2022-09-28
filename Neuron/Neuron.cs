@@ -1,10 +1,11 @@
-﻿using Neuron.Tools;
+﻿using System.Globalization;
+using Neuron.Tools;
 
 namespace Neuron
 {
     public abstract class Neuron
     {
-        public Neuron(int inputCount, NeuronTypes type = NeuronTypes.Normal)
+        protected Neuron(int inputCount, NeuronTypes type = NeuronTypes.Normal)
         {
             Weights = new double[inputCount];
             NeuronType = type;
@@ -13,19 +14,23 @@ namespace Neuron
         public virtual void SetWeights(params double[] weights)
         {
             if (weights.Length != Weights.Length)
-                throw new Exception("Невозможно создать такой нейрон!");
+                throw new Exception("Can't create current neuron!");
 
             Array.Copy(weights, Weights, weights.Length);
         }
 
-        public abstract double[] Weights { get; init; }
+        public double Delta { get; protected set; }
 
-        public abstract NeuronTypes NeuronType { get; init; }
+        public double[] Weights { get; init; }
 
-        public abstract double Output { get; protected set; }
+        public NeuronTypes NeuronType { get; init; }
+
+        public double Output { get; protected set; }
+
+        public abstract void Learn(double error, double learRate);
 
         public abstract double FeedForward(double[] inputs);
 
-        public override string ToString() => Output.ToString();
+        public override string ToString() => Output.ToString(CultureInfo.InvariantCulture);
     }
 }
