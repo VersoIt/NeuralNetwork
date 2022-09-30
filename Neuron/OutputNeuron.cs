@@ -1,9 +1,10 @@
-﻿using Neuron.Tools;
+﻿using NeuralNetwork.Tools;
+using NeuralNetwork.Abstract;
 
 
-namespace Neuron
+namespace NeuralNetwork
 {
-    public class OutputNeuron : Neuron, ILearnable
+    public class OutputNeuron : Neuron
     {
 
         public OutputNeuron(int inputCount)
@@ -24,12 +25,12 @@ namespace Neuron
             if (weights.Length != Weights.Length)
                 throw new Exception("This is impossible to create such a output neuron!");
 
-            Array.Copy(weights, Weights, weights.Length);
+            Array.Copy(weights, 0, Weights, 0, weights.Length);
         }
 
-        public void Learn(double error, double learningRate)
+        public override void Learn(double error, double learningRate)
         {
-            Delta = error * new SigmoidDx().GetResultBy(Output);
+            Delta = error * MathFunction.GetResultOfSigmoidDx(Output);
             for (var i = 0; i < Weights.Length; ++i)
             {
                 var weight = Weights[i];
@@ -52,16 +53,16 @@ namespace Neuron
             }
         }
 
-        public override double FeedForward(double[] inputs)
+        public override double FeedForward(IReadOnlyList<double> inputs)
         {
-            Array.Copy(inputs, Inputs, inputs.Length);
+            Array.Copy(inputs.ToArray(), Inputs, inputs.Count());
 
-            if (inputs.Length != Weights.Length)
+            if (inputs.Count() != Weights.Length)
                 throw new Exception("The number of input signals is not equal to the number of inputs to the output neuron!");
 
             var sum = Weights.Select((w, index) => inputs[index] * w).Sum();
 
-            Output = new Sigmoid().GetResultBy(sum);
+            Output = MathFunction.GetResultOfSigmoid(sum);
 
             return Output;
         }

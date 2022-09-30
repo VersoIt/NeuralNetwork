@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neuron", "Neuron\Neuron.csproj", "{2CCAE63C-0B74-4012-ADC1-93DD337D084C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeuralNetwork", "Neuron\NeuralNetwork.csproj", "{2CCAE63C-0B74-4012-ADC1-93DD337D084C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeuronTests", "NeuronTests\NeuronTests.csproj", "{BBB28989-284A-4C13-85A1-2109CFAFAADE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeuralNetworkTests", "NeuronTests\NeuralNetworkTests.csproj", "{BBB28989-284A-4C13-85A1-2109CFAFAADE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

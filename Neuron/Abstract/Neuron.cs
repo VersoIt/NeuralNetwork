@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
-using Neuron.Tools;
 
-namespace Neuron
+namespace NeuralNetwork.Abstract
 {
     public abstract class Neuron
     {
@@ -9,6 +8,8 @@ namespace Neuron
         {
             Weights = new double[inputCount];
         }
+
+        public abstract void Learn(double error, double learningRate);
 
         public virtual void SetWeights(params double[] weights)
         {
@@ -26,7 +27,7 @@ namespace Neuron
 
         public double Output { get; protected set; }
 
-        public abstract double FeedForward(double[] inputs);
+        public abstract double FeedForward(IReadOnlyList<double> inputs);
 
         public override string ToString() => Output.ToString(CultureInfo.InvariantCulture);
     }

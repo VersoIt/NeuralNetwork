@@ -1,4 +1,7 @@
-﻿namespace Neuron
+﻿using System.Runtime.CompilerServices;
+using NeuralNetwork.Abstract;
+
+namespace NeuralNetwork
 {
     internal class InputNeuron : Neuron
     {
@@ -20,7 +23,7 @@
             if (weights.Length != Weights.Length)
                 throw new Exception("This is impossible to create such a input neuron!");
 
-            Array.Copy(weights, Weights, weights.Length);
+            Array.Copy(weights, 0, Weights, 0, weights.Length);
         }
 
         private void InitWeights(int inputCount)
@@ -32,11 +35,15 @@
             }
         }
 
-        public override double FeedForward(double[] inputs)
+        public override void Learn(double error, double learningRate)
         {
-            Array.Copy(inputs, Inputs, inputs.Length);
+        }
 
-            if (inputs.Length != Weights.Length)
+        public override double FeedForward(IReadOnlyList<double> inputs)
+        {
+            Array.Copy(inputs.ToArray(), Inputs, inputs.Count());
+
+            if (inputs.Count() != Weights.Length)
                 throw new Exception("The number of input signals is not equal to the number of inputs to the input neuron!");
 
             var sum = Weights.Select((t, index) => inputs[index] * t).Sum();

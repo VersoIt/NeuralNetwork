@@ -1,13 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Collections;
-using System.Linq;
+﻿using System;
 
-namespace Neuron.Tools
+namespace NeuralNetwork.Tools
 {
-    public abstract class MathFunction
+    public static class MathFunction
     {
-        public abstract double GetResultBy(double x);
 
-        public override string ToString() => $"{{ {string.Join(" ", Enumerable.Range(-10, 10).Select(x => GetResultBy(x)))} }}";
+        public static double GetResultOfSigmoid(this double x) => 1.0 / (1.0 + Math.Pow(Math.E, -x));
+
+        public static double GetResultOfSigmoidDx(double x)
+        {
+            var sigmoid = GetResultOfSigmoid(x);
+            return sigmoid / (1 - sigmoid);
+        }
     }
 }

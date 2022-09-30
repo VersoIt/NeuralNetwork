@@ -1,4 +1,4 @@
-﻿namespace NeuralNetwork
+﻿namespace PictureConverter
 {
     internal class Program
     {
@@ -6,7 +6,5 @@
         {
 
         }
-     
     }
-
 }

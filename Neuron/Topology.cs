@@ -1,25 +1,33 @@
-﻿
-namespace Neuron
+﻿using NeuralNetwork.Abstract;
+
+namespace NeuralNetwork
 {
-    public struct Topology
+    public struct NeuralNetworkTopology : INeuralNetworkTopology
     {
 
-        public Topology(int inputCount, int outputCount, double learningRate, params int[] neuronsInHiddenLayersCounts)
+        public NeuralNetworkTopology(int inputCount, int outputCount, double learningRate, params int[] neuronsInHiddenLayersCounts)
         {
             InputCount = inputCount;
             OutputCount = outputCount;
+
             NeuronsInHiddenLayersCounts = new int[neuronsInHiddenLayersCounts.Length];
+            HiddenLayersCount = neuronsInHiddenLayersCounts.Length;
             LearningRate = learningRate;
 
-            neuronsInHiddenLayersCounts.CopyTo(NeuronsInHiddenLayersCounts, 0);
+            neuronsInHiddenLayersCounts.CopyTo((Array)NeuronsInHiddenLayersCounts, 0);
+            NeuronsInHiddenLayersCount = neuronsInHiddenLayersCounts.Sum();
         }
 
-        public double LearningRate { get; }
+        public int HiddenLayersCount { get; init; }
 
-        public int InputCount { get; }
+        public int NeuronsInHiddenLayersCount { get; init; }
 
-        public int OutputCount { get; }
+        public double LearningRate { get; init; }
 
-        public int[] NeuronsInHiddenLayersCounts { get; }
+        public int InputCount { get; init; }
+
+        public int OutputCount { get; init; }
+
+        public IReadOnlyList<int> NeuronsInHiddenLayersCounts { get; init; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Neuron.Tools
+﻿namespace NeuralNetwork.Tools
 {
     public static class Matrix
     {

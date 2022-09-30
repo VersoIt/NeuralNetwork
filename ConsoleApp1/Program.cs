@@ -1,16 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NeuralNetwork;
+﻿using NeuralNetwork;
 using NeuralNetwork.Tools;
-using System.Net.Http.Headers;
 using System.Diagnostics;
 
-namespace NeuronTests
+namespace ConsoleApp1
 {
-    [TestClass()]
-    public class NeuralNetworkTests
+    internal class Program
     {
-        [TestMethod()]
-        public void FeedForwardTest()
+        static void Main(string[] args)
         {
             var watch = new Stopwatch();
             watch.Start();
@@ -35,7 +31,7 @@ namespace NeuronTests
                 { 1, 1, 1, 1 }
             };
 
-            var topology = new NeuralNetworkTopology(4, 1, 0.1, 10000);
+            var topology = new NeuralNetworkTopology(4, 1, 0.1, 14);
             var neuralNetwork = new FeedForwardNeuralNetwork(topology);
             var difference = neuralNetwork.Learn(outputs, inputs, 100);
 
@@ -51,8 +47,9 @@ namespace NeuronTests
             {
                 var expected = Math.Round(outputs[i], 2);
                 var actual = Math.Round(results[i], 2);
-                Assert.AreEqual(1, 1);
             }
+            watch.Stop();
+            Console.WriteLine($"{watch.ElapsedMilliseconds} ms");
         }
     }
 }
