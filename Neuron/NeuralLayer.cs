@@ -71,8 +71,8 @@ namespace NeuralNetwork
 
         private void LearnNeuronsByThreads(INeuralLayer previousLayer, double learningRate)
         {
-            List<Thread> threads = new List<Thread>();
             int subThreadsCount = Neurons.Count() / NeuronsInOneThread;
+            List<Thread> threads = new List<Thread>(subThreadsCount);
 
             for (int part = 0; part < subThreadsCount; ++part)
             {

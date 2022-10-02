@@ -10,7 +10,7 @@ namespace NeuralNetwork
         public FeedForwardNeuralNetwork(INeuralNetworkTopology topology)
         {
             Topology = topology;
-            Layers = new List<INeuralLayer>();
+            Layers = new List<INeuralLayer>(topology.HiddenLayersCount + 2);
 
             CreateInputLayer();
             CreateHiddenLayers();

@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeuralNetwork", "Neuron\Neu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeuralNetworkTests", "NeuronTests\NeuralNetworkTests.csproj", "{BBB28989-284A-4C13-85A1-2109CFAFAADE}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PictureConverter", "PictureConverter\PictureConverter.csproj", "{8F5EAAED-3AF1-4C85-8AEC-374388762E20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PictureConverterTests", "PictureConverterTests\PictureConverterTests.csproj", "{3169EF4D-FFCF-4406-A326-4D823F8A946D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{BBB28989-284A-4C13-85A1-2109CFAFAADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBB28989-284A-4C13-85A1-2109CFAFAADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBB28989-284A-4C13-85A1-2109CFAFAADE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F5EAAED-3AF1-4C85-8AEC-374388762E20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F5EAAED-3AF1-4C85-8AEC-374388762E20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F5EAAED-3AF1-4C85-8AEC-374388762E20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F5EAAED-3AF1-4C85-8AEC-374388762E20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3169EF4D-FFCF-4406-A326-4D823F8A946D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3169EF4D-FFCF-4406-A326-4D823F8A946D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3169EF4D-FFCF-4406-A326-4D823F8A946D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3169EF4D-FFCF-4406-A326-4D823F8A946D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

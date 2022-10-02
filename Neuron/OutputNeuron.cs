@@ -12,7 +12,6 @@ namespace NeuralNetwork
         {
             Weights = new double[inputCount];
             Inputs = new double[inputCount];
-
             InitWeightsByRandomValues(inputCount);
         }
 
